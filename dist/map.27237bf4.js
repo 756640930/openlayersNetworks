@@ -141,38 +141,32 @@ window.map = new ol.Map({
     zoom: 14
   }),
   interactions: ol.interaction.defaults().extend([selectPointerMove])
-});
-var controls = document.getElementById('ControlLayers'); // 事件委托
-
-controls.addEventListener('click', function (event) {
-  if (event.target.checked) {
-    switch (event.target.id) {
-      case "osm":
-        map.getLayers().item(0).setVisible(true);
-        break;
-
-      case "bingmap":
-        map.getLayers().item(1).setVisible(true);
-        break;
-
-      default:
-        break;
-    }
-  } else {
-    // 通过DOM元素的id值来判断应该对哪个图层进行隐藏
-    switch (event.target.id) {
-      case "osm":
-        map.getLayers().item(0).setVisible(false);
-        break;
-
-      case "bingmap":
-        map.getLayers().item(1).setVisible(false);
-
-      default:
-        break;
-    }
-  }
-}); //全屏控件
+}); // let controls = document.getElementById('ControlLayers');     
+//         // 事件委托
+//         controls.addEventListener('onselect', (event) => {
+//             if(event.target.checked){                       
+//                 switch(event.target.id){
+//                     case "osm": 
+//                         map.getLayers().item(0).setVisible(true);
+//                         break;
+//                     case "bingmap":
+//                         map.getLayers().item(1).setVisible(true);
+//                         break;
+//                     default: break;
+//                 }
+//             }else{                                         
+//                 // 通过DOM元素的id值来判断应该对哪个图层进行隐藏
+//                 switch(event.target.id){
+//                   case "osm": 
+//                       map.getLayers().item(0).setVisible(false);
+//                       break;
+//                   case "bingmap":
+//                       map.getLayers().item(1).setVisible(false);
+//                   default: break;
+//               }
+//           } 
+//       });
+//全屏控件
 
 var fullscreen = new ol.control.FullScreen();
 map.addControl(fullscreen);
@@ -224,7 +218,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62612" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55128" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

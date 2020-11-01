@@ -156,12 +156,13 @@ for (var k = 0; k < node_data.features.length; k++) {
 var geojsonObject2 = node_data; //加载node1的geojson对象数据
 
 var nodeSource = new ol.source.Vector({
-  features: new ol.format.GeoJSON().readFeatures(geojsonObject2)
+  features: new ol.format.GeoJSON().readFeatures(geojsonObject2),
+  attributions: '</br>' + 'Link and node data by ' + '<a href="https://github.com/xzhou99">Xuesong Zhou</a>,'
 });
 var node_Layer = new ol.layer.Vector({
   source: nodeSource,
   style: style_nodeFunction1,
-  visible: false
+  visible: true
 });
 map.addLayer(node_Layer); // var node_add = [
 //  [-76.898200,39.006061], 
@@ -247,7 +248,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62612" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55128" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

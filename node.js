@@ -38,7 +38,10 @@ var geojsonObject2 = node_data;
 
 //加载node1的geojson对象数据
 var nodeSource = new ol.source.Vector({
-  features: new ol.format.GeoJSON().readFeatures(geojsonObject2)
+  features: new ol.format.GeoJSON().readFeatures(geojsonObject2),
+  attributions:
+  '</br>'+'Link and node data by ' +
+  '<a href="https://github.com/xzhou99">Xuesong Zhou</a>,'
 });
 
 
@@ -46,7 +49,7 @@ var nodeSource = new ol.source.Vector({
 var node_Layer = new ol.layer.Vector({
   source: nodeSource,
   style: style_nodeFunction1,
-  visible: false,
+  visible: true,
 });
 
 map.addLayer(node_Layer);

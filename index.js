@@ -1,4 +1,3 @@
-// import 'ol/ol.css';
 // // import Circle from 'ol/geom/Circle';
 // import Feature from 'ol/Feature';
 // // import GeoJSON from 'ol/format/GeoJSON';
@@ -52,16 +51,16 @@ map.addLayer(tileLayerBiying);
 //  * Add a click handler to hide the popup.
 //  * @return {boolean} Don't follow the href.
 //  */
-closer.onclick = function () {
-  overlay.setPosition(undefined);
-  closer.blur();
-  return false;
-};
+// closer.onclick = function () {
+//   overlay.setPosition(undefined);
+//   closer.blur();
+//   return false;
+// };
 
-//修改选择功能的默认属性
-var selectPointerMove = new ol.interaction.Select({
-  condition: ol.events.condition.pointerMove,
-});
+// //修改选择功能的默认属性
+// var selectPointerMove = new ol.interaction.Select({
+//   condition: ol.events.condition.pointerMove,
+// });
 
 
 
@@ -82,14 +81,14 @@ var styles2 = {
     }),
   }),
 };
-var styles3 = {
-  'LineString': new ol.style.Style({
-    stroke: new ol.style.Stroke({
-      color: 'rgba(200,20,20)',
-      width: 2,
-    }),
-  }),
-};
+// var styles3 = {
+//   'LineString': new ol.style.Style({
+//     stroke: new ol.style.Stroke({
+//       color: 'rgba(20,200,200)',
+//       width: 2,
+//     }),
+//   }),
+// };
 
 var styleFunction = function (feature) {
   return styles[feature.getGeometry().getType()];
@@ -101,11 +100,11 @@ var styleFunction2 = function (feature) {
 };
 //总Link的数据
 var link2_data = window.link2_geojson_data;
-var styleFunction3 = function (feature) {
-  return styles3[feature.getGeometry().getType()];
-};
-//总Link的数据
-var link3_data = window.link3_geojson_data;
+// var styleFunction3 = function (feature) {
+//   return styles3[feature.getGeometry().getType()];
+// };
+// //总Link的数据
+// var link3_data = window.link3_geojson_data;
 
 
 //转化geojson数据的坐标系
@@ -121,17 +120,17 @@ for(var i = 0;i < link2_data.features.length;i++){
     link2_data.features[i].geometry.coordinates[j] =ol.proj.transform(link2_data.features[i].geometry.coordinates[j],'EPSG:4326','EPSG:3857');
   }
 };
-for(var i = 0;i < link3_data.features.length;i++){
-  //开始转换
-  for(var j=0;j<link3_data.features[i].geometry.coordinates.length;j++){
-    link3_data.features[i].geometry.coordinates[j] =ol.proj.transform(link3_data.features[i].geometry.coordinates[j],'EPSG:4326','EPSG:3857');
-  }
-};
+// for(var i = 0;i < link3_data.features.length;i++){
+//   //开始转换
+//   for(var j=0;j<link3_data.features[i].geometry.coordinates.length;j++){
+//     link3_data.features[i].geometry.coordinates[j] =ol.proj.transform(link3_data.features[i].geometry.coordinates[j],'EPSG:4326','EPSG:3857');
+//   }
+// };
 
-总网络geo数据
+// 总网络geo数据
 var geojsonObject = link_data;
 var geojsonObject2 = link2_data;
-var geojsonObject3 = link3_data;
+// var geojsonObject3 = link3_data;
 //加载道路geojson对象数据
 var vectorSource = new ol.source.Vector({
   features: new ol.format.GeoJSON().readFeatures(geojsonObject),
@@ -139,25 +138,25 @@ var vectorSource = new ol.source.Vector({
 var vectorSource2 = new ol.source.Vector({
   features: new ol.format.GeoJSON().readFeatures(geojsonObject2),
 });
-var vectorSource3 = new ol.source.Vector({
-  features: new ol.format.GeoJSON().readFeatures(geojsonObject3),
-});
+// var vectorSource3 = new ol.source.Vector({
+//   features: new ol.format.GeoJSON().readFeatures(geojsonObject3),
+// });
 
 var link_Layer = new ol.layer.Vector({
   source: vectorSource,
   style: styleFunction,
-  visible: true,
+  visible: false,
 });
 var link_Layer2 = new ol.layer.Vector({
   source: vectorSource2,
   style: styleFunction2,
-  visible: true,
+  visible: false,
 });
-var link_Layer3 = new ol.layer.Vector({
-  source: vectorSource3,
-  style: styleFunction3,
-  visible: true,
-});
+// var link_Layer3 = new ol.layer.Vector({
+//   source: vectorSource3,
+//   style: styleFunction3,
+//   visible: true,
+// });
 
 
 
@@ -168,78 +167,97 @@ var link_Layer3 = new ol.layer.Vector({
 
 
 //绑定多选框
-let controls = document.getElementById('controls');     
+let control2 = document.getElementById('controls2');     
         // 事件委托
-        controls.addEventListener('click', (event) => {
+        control2.addEventListener('click', (event) => {
             if(event.target.checked){                       // 如果选中某一复选框
                 // 通过DOM元素的id值来判断应该对哪个图层进行显示
                 switch(event.target.id){
-                    case "Agent1":
-                        map.getLayers().item(1).setVisible(true);
-                        break;
-                    case "Agent2": 
-                        map.getLayers().item(2).setVisible(true);
-                        break;
                     case "Agent3": 
-                        map.getLayers().item(3).setVisible(true);
+                        map.getLayers().item(6).setVisible(true);
                         break;
                     case "Agent4": 
-                        map.getLayers().item(4).setVisible(true);
+                        map.getLayers().item(7).setVisible(true);
                         break;
                     case "Agent5": 
-                        map.getLayers().item(5).setVisible(true);
-                        break;
-                    case "Node": 
-                        map.getLayers().item(6).setVisible(true);
+                        map.getLayers().item(8).setVisible(true);
                         break;
                 }
             }else{                                         // 如果取消某一复选框
                 // 通过DOM元素的id值来判断应该对哪个图层进行隐藏
                 switch(event.target.id){
-                    case "Agent1":
-                        map.getLayers().item(1).setVisible(false);
-                        break;
-                    case "Agent2": 
-                        map.getLayers().item(2).setVisible(false);
-                        break;
                     case "Agent3": 
-                        map.getLayers().item(3).setVisible(false);
+                        map.getLayers().item(6).setVisible(false);
                         break;
                     case "Agent4": 
-                        map.getLayers().item(4).setVisible(false);
+                        map.getLayers().item(7).setVisible(false);
                         break;
                     case "Agent5": 
+                        map.getLayers().item(8).setVisible(false);
+                        break;
+                }
+            } 
+        });
+//绑定多选框
+let control1 = document.getElementById('controls1');     
+        // 事件委托
+        control1.addEventListener('click', (event) => {
+            if(event.target.checked){                       // 如果选中某一复选框
+                // 通过DOM元素的id值来判断应该对哪个图层进行显示
+                switch(event.target.id){
+                    case "Agent1":
+                        map.getLayers().item(4).setVisible(true);
+                        break;
+                    case "Agent2": 
+                        map.getLayers().item(5).setVisible(true);
+                        break;
+                    case "macronet":
+                          map.getLayers().item(2).setVisible(true);
+                          break;
+                      case "mesonet": 
+                          map.getLayers().item(3).setVisible(true);
+                          break;
+                }
+            }else{                                         // 如果取消某一复选框
+                // 通过DOM元素的id值来判断应该对哪个图层进行隐藏
+                switch(event.target.id){
+                    case "Agent1":
+                        map.getLayers().item(4).setVisible(false);
+                        break;
+                    case "Agent2": 
                         map.getLayers().item(5).setVisible(false);
                         break;
-                    case "Node": 
-                        map.getLayers().item(6).setVisible(false);
+                    case "macronet":
+                        map.getLayers().item(2).setVisible(false);
+                        break;
+                      case "mesonet": 
+                        map.getLayers().item(3).setVisible(false);
                         break;
                 }
             } 
         });
 
+// map.on('click', function (evt) {
+//   var feature = map.forEachFeatureAtPixel(evt.pixel,function(feature, layer) 
+//   {
+//       return feature;
+//     });
+//   if (feature) {
+//       var geometry = feature.getGeometry();
+//       var coord = evt.coordinate
+//       var contents = '<p>title_name1: content</p>'+'<br/>'+'<p>title_name2: content</p>'+'<br/>'+'<p>......</p>';    
+//       content_element.innerHTML = contents;
+//       overlay.setPosition(coord);
+//   }
+// });
 
-map.on('click', function (evt) {
-  var feature = map.forEachFeatureAtPixel(evt.pixel,function(feature, layer) 
-  {
-      return feature;
-    });
-  if (feature) {
-      var geometry = feature.getGeometry();
-      var coord = evt.coordinate
-      var contents = '<p>title_name1: content</p>'+'<br/>'+'<p>title_name2: content</p>'+'<br/>'+'<p>......</p>';    
-      content_element.innerHTML = contents;
-      overlay.setPosition(coord);
-  }
-});
-
-map.on('pointermove', function(e) {
-  if (e.dragging) return;
+// map.on('pointermove', function(e) {
+//   if (e.dragging) return;
      
-  var pixel = map.getEventPixel(e.originalEvent);
-  var hit = map.hasFeatureAtPixel(pixel);
-  map.getTargetElement().style.cursor = hit ? 'pointer' : '';
-});
+//   var pixel = map.getEventPixel(e.originalEvent);
+//   var hit = map.hasFeatureAtPixel(pixel);
+//   map.getTargetElement().style.cursor = hit ? 'pointer' : '';
+// });
 
 
 
@@ -289,9 +307,6 @@ var sourceString_1 = [];
 //动态路径1的source
 var flightsSource = new ol.source.Vector({
   wrapX: false,
-  attributions:
-    'Link and node data by ' +
-    '<a href="http://openflights.org/data.html">Xuesong Zhou</a>,',
   loader: function(){
       var flightsData = window.flights1;
       for (var i = 0; i < flightsData.length; i++) {
@@ -327,9 +342,6 @@ var sourceString_2 = [];
 //动态路径1的source
 var flightsSource_2 = new ol.source.Vector({
   wrapX: false,
-  attributions:
-  'Link and node data by ' +
-  '<a href="http://openflights.org/data.html">Xuesong Zhou</a>,',
   loader: function(){
       var flightsData = window.flights_2;
       for (var i = 0; i < flightsData.length; i++) {
@@ -365,9 +377,6 @@ var sourceString_3 = [];
 //动态路径3的source
 var flightsSource_3 = new ol.source.Vector({
   wrapX: false,
-  attributions:
-  'Link and node data by ' +
-  '<a href="http://openflights.org/data.html">Xuesong Zhou</a>,',
   loader: function(){
       var flightsData = window.flights_3;
       for (var i = 0; i < flightsData.length; i++) {
@@ -405,9 +414,6 @@ var sourceString_4 = [];
 //动态路径3的source
 var flightsSource_4 = new ol.source.Vector({
   wrapX: false,
-  attributions:
-  'Link and node data by ' +
-  '<a href="http://openflights.org/data.html">Xuesong Zhou</a>,',
   loader: function(){
       var flightsData = window.flights_4;
       for (var i = 0; i < flightsData.length; i++) {
@@ -443,9 +449,6 @@ var sourceString_5 = [];
 //动态路径3的source
 var flightsSource_5 = new ol.source.Vector({
   wrapX: false,
-  attributions:
-  'Link and node data by ' +
-  '<a href="http://openflights.org/data.html">Xuesong Zhou</a>,',
   loader: function(){
       var flightsData = window.flights_5;
       for (var i = 0; i < flightsData.length; i++) {
@@ -541,7 +544,7 @@ var flightsLayer_5 = new ol.layer.Vector({
 });
 map.addLayer(link_Layer);
 map.addLayer(link_Layer2);
-map.addLayer(link_Layer3);
+// map.addLayer(link_Layer3);
 map.addLayer(flightsLayer_1);
 map.addLayer(flightsLayer_2);
 map.addLayer(flightsLayer_3);
@@ -724,3 +727,4 @@ function addLater_5(feature, timeout) {
     flightsSource_5.addFeature(feature);
   }, timeout);
 }
+console.log(window.map.layers)
