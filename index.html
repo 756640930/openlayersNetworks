@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Using Parcel with OpenLayers</title>
+    <script src="https://api.mapbox.com/mapbox.js/plugins/arc.js/v0.1.0/arc.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.1.1/build/ol.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.1.1/css/ol.css"
+      type="text/css"
+    />
+   <style>
+      #map{
+        position:absolute;
+      }
+      .ol-popup {
+        position: absolute;
+        background-color: white;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        bottom: 50px;
+        left: -30px;
+        min-width: 280px;
+      }
+      .ol-popup:after, 
+      .ol-popup:before {
+        top: 100%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+      .ol-popup:after {
+        border-top-color: white;
+        border-width: 10px;
+        left: 48px;
+        margin-left: -10px;
+      }
+      .ol-popup:before {
+        border-top-color: #cccccc;
+        border-width: 11px;
+        left: 48px;
+        margin-left: -11px;
+      }
+      .ol-popup-closer {
+        text-decoration: none;
+        position: absolute;
+        top: 2px;
+        right: 8px;
+      }
+      .ol-popup-closer:after {
+        content: "✖";
+      }
+   </style>
+  </head>
+  <body>
+    <button id="pan-to-washington">Pan to Washington</button>
+    <button id="pan-to-phoenix">Pan to Phoenix</button>
+    <div id="ControlLayers">
+      <input type="checkbox" id="osm" checked />OpenStreetMap
+      <input type="checkbox" id="bingmap" />Bing Map
+  </div>
+    <div id="controls">
+      <input type="checkbox" id="Agent1" checked ='checked' />Agent1
+      <input type="checkbox" id="Agent2" checked ='checked' />Agent2
+      <input type="checkbox" id="Agent3" checked ='checked' />Agent3
+      <input type="checkbox" id="Agent4" checked ='checked' />Agent4
+      <input type="checkbox" id="Agent5" checked ='checked' />Agent5
+      <input type="checkbox" id="Node" />Node
+    </div>
+    <div id="map" class="map" style="width:80%; height:600px" tabindex="0"></div>
+    <div id="popup" class="ol-popup">
+      <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+      <div id="popup-content"></div>
+    </div>
+    <script src="./data.js"></script>
+    <script src="./network1.js"></script>
+    <script src="./network2.js"></script>
+    <script src="./network3.js"></script>
+    <script src="./map.js"></script>
+    <script src="./index.js"></script>
+    <script src="./node.js"></script>
+   <script>
+// //点的样式
+// var image = new ol.style.Circle({
+//   radius: 3,
+//   fill: new ol.style.Fill({color: 'black'}),
+//   stroke: new ol.style.Stroke({color: 'red', width: 1}),
+// });
+
+// var styles1_node = {
+//   'Point': new ol.style.Style({
+//     image: image,
+//   }),
+// };
+// var style_nodeFunction1 = function (feature) {
+//   return styles1_node[feature.getGeometry().getType()];
+// };
+
+
+// //转化node坐标
+// for(var k = 0;k < node_data.features.length;k++){
+//   //开始转换
+//   node_data.features[k].geometry.coordinates = ol.proj.transform(node_data.features[k].geometry.coordinates,'EPSG:4326','EPSG:3857');
+// };
+
+// //node节点geo数据
+// var geojsonObject2 = node_data;
+
+
+
+// //加载node1的geojson对象数据
+// var nodeSource = new ol.source.Vector({
+//   features: new ol.format.GeoJSON().readFeatures(geojsonObject2)
+// });
+
+
+
+// var node_Layer = new ol.layer.Vector({
+//   source: nodeSource,
+//   style: style_nodeFunction1,
+//   visible: false,
+// });
+
+// map.addLayer(node_Layer);
+   </script>
+  </body>
+</html>
