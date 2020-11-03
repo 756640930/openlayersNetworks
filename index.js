@@ -84,7 +84,7 @@ var styles2 = {
 var styles3 = {
   'LineString': new ol.style.Style({
     stroke: new ol.style.Stroke({
-      color: 'rgba(20,200,200)',
+      color: 'rgba(20,100,150)',
       width: 2,
     }),
   }),
