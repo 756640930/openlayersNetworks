@@ -131,7 +131,7 @@ for(var i = 0;i < link3_data.features.length;i++){
 var geojsonObject = link_data;
 var geojsonObject2 = link2_data;
 var geojsonObject3 = link3_data;
-加载道路geojson对象数据
+// 加载道路geojson对象数据
 var vectorSource = new ol.source.Vector({
   features: new ol.format.GeoJSON().readFeatures(geojsonObject),
 });
