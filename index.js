@@ -89,6 +89,14 @@ var styles3 = {
     }),
   }),
 };
+var styles4 = {
+  'LineString': new ol.style.Style({
+    stroke: new ol.style.Stroke({
+      color: 'rgba(20,100,150)',
+      width: 2,
+    }),
+  }),
+};
 
 var styleFunction = function (feature) {
   return styles[feature.getGeometry().getType()];
@@ -105,6 +113,10 @@ var styleFunction3 = function (feature) {
 };
 //总Link的数据
 var link3_data = window.link3_geojson_data;
+var styleFunction4 = function (feature) {
+  return styles4[feature.getGeometry().getType()];
+};
+var link4_data = window.link4_geojson_data;
 
 
 //转化geojson数据的坐标系
@@ -126,11 +138,20 @@ for(var i = 0;i < link3_data.features.length;i++){
     link3_data.features[i].geometry.coordinates[j] =ol.proj.transform(link3_data.features[i].geometry.coordinates[j],'EPSG:4326','EPSG:3857');
   }
 };
+for(var i = 0;i < link4_data.features.length;i++){
+  //开始转换
+  for(var j=0;j<link4_data.features[i].geometry.coordinates.length;j++){
+    link4_data.features[i].geometry.coordinates[j] =ol.proj.transform(link4_data.features[i].geometry.coordinates[j],'EPSG:4326','EPSG:3857');
+  }
+};
 
+var test = ol.proj.transform([-96.770683,43.612854],'EPSG:4326','EPSG:3857');
+console.log(test);
 // 总网络geo数据
 var geojsonObject = link_data;
 var geojsonObject2 = link2_data;
 var geojsonObject3 = link3_data;
+var geojsonObject4 = link4_data;
 // 加载道路geojson对象数据
 var vectorSource = new ol.source.Vector({
   features: new ol.format.GeoJSON().readFeatures(geojsonObject),
@@ -140,6 +161,9 @@ var vectorSource2 = new ol.source.Vector({
 });
 var vectorSource3 = new ol.source.Vector({
   features: new ol.format.GeoJSON().readFeatures(geojsonObject3),
+});
+var vectorSource4 = new ol.source.Vector({
+  features: new ol.format.GeoJSON().readFeatures(geojsonObject4),
 });
 
 var link_Layer = new ol.layer.Vector({
@@ -157,6 +181,12 @@ var link_Layer3 = new ol.layer.Vector({
   style: styleFunction3,
   visible: false,
 });
+var link_Layer4 = new ol.layer.Vector({
+  source: vectorSource4,
+  style: styleFunction4,
+  visible: true,
+});
+
 
 
 
@@ -553,9 +583,10 @@ map.addLayer(link_Layer2);
 map.addLayer(link_Layer3);
 map.addLayer(flightsLayer_1);
 map.addLayer(flightsLayer_2);
-map.addLayer(flightsLayer_3);
-map.addLayer(flightsLayer_4);
-map.addLayer(flightsLayer_5);
+// map.addLayer(flightsLayer_3);
+// map.addLayer(flightsLayer_4);
+// map.addLayer(flightsLayer_5);
+map.addLayer(link_Layer4);
 var pointsPerMs = 0.2;
 function animateFlights(event) {
   var vectorContext = ol.render.getVectorContext(event);

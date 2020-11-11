@@ -68,8 +68,8 @@ function onClick(id, callback) {
 
 onClick('pan-to-washington', function () {
   map.getView().animate(
-    {center: [-8560271.695184544, 4721544.2317580255]},
-    {zoom: 13},
+    {center: [-10770463.155277295, 5397724.615835932]},
+    {zoom: 12},
   );
 });
 onClick('pan-to-phoenix', function () {

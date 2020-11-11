@@ -197,14 +197,23 @@ var styles2 = {
       width: 2
     })
   })
-}; // var styles3 = {
-//   'LineString': new ol.style.Style({
-//     stroke: new ol.style.Stroke({
-//       color: 'rgba(20,200,200)',
-//       width: 2,
-//     }),
-//   }),
-// };
+};
+var styles3 = {
+  'LineString': new ol.style.Style({
+    stroke: new ol.style.Stroke({
+      color: 'rgba(20,100,150)',
+      width: 2
+    })
+  })
+};
+var styles4 = {
+  'LineString': new ol.style.Style({
+    stroke: new ol.style.Stroke({
+      color: 'rgba(20,100,150)',
+      width: 2
+    })
+  })
+};
 
 var styleFunction = function styleFunction(feature) {
   return styles[feature.getGeometry().getType()];
@@ -218,12 +227,20 @@ var styleFunction2 = function styleFunction2(feature) {
 }; //总Link的数据
 
 
-var link2_data = window.link2_geojson_data; // var styleFunction3 = function (feature) {
-//   return styles3[feature.getGeometry().getType()];
-// };
-// //总Link的数据
-// var link3_data = window.link3_geojson_data;
-//转化geojson数据的坐标系
+var link2_data = window.link2_geojson_data;
+
+var styleFunction3 = function styleFunction3(feature) {
+  return styles3[feature.getGeometry().getType()];
+}; //总Link的数据
+
+
+var link3_data = window.link3_geojson_data;
+
+var styleFunction4 = function styleFunction4(feature) {
+  return styles4[feature.getGeometry().getType()];
+};
+
+var link4_data = window.link4_geojson_data; //转化geojson数据的坐标系
 
 for (var i = 0; i < link_data.features.length; i++) {
   //开始转换
@@ -241,27 +258,45 @@ for (var i = 0; i < link2_data.features.length; i++) {
   }
 }
 
-; // for(var i = 0;i < link3_data.features.length;i++){
-//   //开始转换
-//   for(var j=0;j<link3_data.features[i].geometry.coordinates.length;j++){
-//     link3_data.features[i].geometry.coordinates[j] =ol.proj.transform(link3_data.features[i].geometry.coordinates[j],'EPSG:4326','EPSG:3857');
-//   }
-// };
-// 总网络geo数据
+;
+
+for (var i = 0; i < link3_data.features.length; i++) {
+  //开始转换
+  for (var j = 0; j < link3_data.features[i].geometry.coordinates.length; j++) {
+    link3_data.features[i].geometry.coordinates[j] = ol.proj.transform(link3_data.features[i].geometry.coordinates[j], 'EPSG:4326', 'EPSG:3857');
+  }
+}
+
+;
+
+for (var i = 0; i < link4_data.features.length; i++) {
+  //开始转换
+  for (var j = 0; j < link4_data.features[i].geometry.coordinates.length; j++) {
+    link4_data.features[i].geometry.coordinates[j] = ol.proj.transform(link4_data.features[i].geometry.coordinates[j], 'EPSG:4326', 'EPSG:3857');
+  }
+}
+
+;
+var test = ol.proj.transform([-96.770683, 43.612854], 'EPSG:4326', 'EPSG:3857');
+console.log(test); // 总网络geo数据
 
 var geojsonObject = link_data;
-var geojsonObject2 = link2_data; // var geojsonObject3 = link3_data;
-//加载道路geojson对象数据
+var geojsonObject2 = link2_data;
+var geojsonObject3 = link3_data;
+var geojsonObject4 = link4_data; // 加载道路geojson对象数据
 
 var vectorSource = new ol.source.Vector({
   features: new ol.format.GeoJSON().readFeatures(geojsonObject)
 });
 var vectorSource2 = new ol.source.Vector({
   features: new ol.format.GeoJSON().readFeatures(geojsonObject2)
-}); // var vectorSource3 = new ol.source.Vector({
-//   features: new ol.format.GeoJSON().readFeatures(geojsonObject3),
-// });
-
+});
+var vectorSource3 = new ol.source.Vector({
+  features: new ol.format.GeoJSON().readFeatures(geojsonObject3)
+});
+var vectorSource4 = new ol.source.Vector({
+  features: new ol.format.GeoJSON().readFeatures(geojsonObject4)
+});
 var link_Layer = new ol.layer.Vector({
   source: vectorSource,
   style: styleFunction,
@@ -271,12 +306,17 @@ var link_Layer2 = new ol.layer.Vector({
   source: vectorSource2,
   style: styleFunction2,
   visible: false
-}); // var link_Layer3 = new ol.layer.Vector({
-//   source: vectorSource3,
-//   style: styleFunction3,
-//   visible: true,
-// });
-//绑定多选框
+});
+var link_Layer3 = new ol.layer.Vector({
+  source: vectorSource3,
+  style: styleFunction3,
+  visible: false
+});
+var link_Layer4 = new ol.layer.Vector({
+  source: vectorSource4,
+  style: styleFunction4,
+  visible: true
+}); //绑定多选框
 
 var control2 = document.getElementById('controls2'); // 事件委托
 
@@ -286,15 +326,15 @@ control2.addEventListener('click', function (event) {
     // 通过DOM元素的id值来判断应该对哪个图层进行显示
     switch (event.target.id) {
       case "Agent3":
-        map.getLayers().item(6).setVisible(true);
-        break;
-
-      case "Agent4":
         map.getLayers().item(7).setVisible(true);
         break;
 
-      case "Agent5":
+      case "Agent4":
         map.getLayers().item(8).setVisible(true);
+        break;
+
+      case "Agent5":
+        map.getLayers().item(9).setVisible(true);
         break;
     }
   } else {
@@ -302,15 +342,15 @@ control2.addEventListener('click', function (event) {
     // 通过DOM元素的id值来判断应该对哪个图层进行隐藏
     switch (event.target.id) {
       case "Agent3":
-        map.getLayers().item(6).setVisible(false);
-        break;
-
-      case "Agent4":
         map.getLayers().item(7).setVisible(false);
         break;
 
-      case "Agent5":
+      case "Agent4":
         map.getLayers().item(8).setVisible(false);
+        break;
+
+      case "Agent5":
+        map.getLayers().item(9).setVisible(false);
         break;
     }
   }
@@ -324,11 +364,11 @@ control1.addEventListener('click', function (event) {
     // 通过DOM元素的id值来判断应该对哪个图层进行显示
     switch (event.target.id) {
       case "Agent1":
-        map.getLayers().item(4).setVisible(true);
+        map.getLayers().item(5).setVisible(true);
         break;
 
       case "Agent2":
-        map.getLayers().item(5).setVisible(true);
+        map.getLayers().item(6).setVisible(true);
         break;
 
       case "macronet":
@@ -338,17 +378,21 @@ control1.addEventListener('click', function (event) {
       case "mesonet":
         map.getLayers().item(3).setVisible(true);
         break;
+
+      case "micronet":
+        map.getLayers().item(4).setVisible(true);
+        break;
     }
   } else {
     // 如果取消某一复选框
     // 通过DOM元素的id值来判断应该对哪个图层进行隐藏
     switch (event.target.id) {
       case "Agent1":
-        map.getLayers().item(4).setVisible(false);
+        map.getLayers().item(5).setVisible(false);
         break;
 
       case "Agent2":
-        map.getLayers().item(5).setVisible(false);
+        map.getLayers().item(6).setVisible(false);
         break;
 
       case "macronet":
@@ -357,6 +401,10 @@ control1.addEventListener('click', function (event) {
 
       case "mesonet":
         map.getLayers().item(3).setVisible(false);
+        break;
+
+      case "micronet":
+        map.getLayers().item(4).setVisible(false);
         break;
     }
   }
@@ -671,13 +719,14 @@ var flightsLayer_5 = new ol.layer.Vector({
   }
 });
 map.addLayer(link_Layer);
-map.addLayer(link_Layer2); // map.addLayer(link_Layer3);
-
+map.addLayer(link_Layer2);
+map.addLayer(link_Layer3);
 map.addLayer(flightsLayer_1);
-map.addLayer(flightsLayer_2);
-map.addLayer(flightsLayer_3);
-map.addLayer(flightsLayer_4);
-map.addLayer(flightsLayer_5);
+map.addLayer(flightsLayer_2); // map.addLayer(flightsLayer_3);
+// map.addLayer(flightsLayer_4);
+// map.addLayer(flightsLayer_5);
+
+map.addLayer(link_Layer4);
 var pointsPerMs = 0.2;
 
 function animateFlights(event) {
@@ -894,7 +943,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50084" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49232" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

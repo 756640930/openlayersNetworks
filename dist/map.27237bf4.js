@@ -178,9 +178,9 @@ function onClick(id, callback) {
 ;
 onClick('pan-to-washington', function () {
   map.getView().animate({
-    center: [-8560271.695184544, 4721544.2317580255]
+    center: [-10770463.155277295, 5397724.615835932]
   }, {
-    zoom: 13
+    zoom: 12
   });
 });
 onClick('pan-to-phoenix', function () {
@@ -218,7 +218,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50084" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49232" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
